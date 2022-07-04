@@ -1,0 +1,21 @@
+{
+  "name": "qrec",
+  "version": "1.0.0",
+  "description": "cli interface for qre",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "qrec": "index.js"
+  },
+  "author": "Michael M.",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
