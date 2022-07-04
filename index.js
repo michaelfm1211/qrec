@@ -18,6 +18,7 @@ const usage = () => {
   console.error(`usage: qrec options...
     -a shortcut longURL\tadd a new redirect from /shortcut to logURL
     -d shortcut\t\tdelete an existing redirect
+    -l\t\t\tlist all redirects
     -h\t\t\tshow this help`);
   process.exit(1);
 };
@@ -30,6 +31,15 @@ const addRedirect = async (shortcut, longURL) => {
 const removeRedirect = async (shortcut) => {
   const resp = await db.hDel('redirects', shortcut);
   handleResp(resp);
+};
+
+const listRedirects = async () => {
+  const resp = await db.hGetAll('redirects');
+  keys = Object.keys(resp);
+  for (let i = 0; i < keys.length; i++) {
+    console.log(keys[i], resp[keys[i]]);
+  }
+  process.exit(0);
 };
 
 const main = async () => {
@@ -46,6 +56,8 @@ const main = async () => {
       if (process.argv.length < i+2) usage();
       await removeRedirect(process.argv[i+1]);
       i++;
+    } else if (process.argv[i] == '-l') {
+      await listRedirects();
     } else {
       console.error('unknown option: ' + process.argv[i]);
       process.exit(1);
